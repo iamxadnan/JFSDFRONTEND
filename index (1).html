@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: transparent;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .logo img {
+            width: 50px;
+        }
+
+        /* Quarter Circles */
+        .quarter-circle {
+            width: 200px;
+            height: 200px;
+            background-color: #dcdcdc;
+            border-radius: 0 0 200px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .quarter-circle-right {
+            width: 300px;
+            height: 250px;
+            margin-top: 300px;
+            margin-right:-130px;
+            background-color: #dcdcdc;
+            border-radius: 150px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        /* Adding background image */
+        /* Updated background image CSS to move it behind the content */
+.background-image {
+    background-image: url('image.png'); /* Using uploaded image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50px;
+    z-index: 0; /* Setting a lower z-index to move it behind */
+    height: 50vh;
+   margin-left:32px;
+    position: absolute; /* Make it absolute to sit behind content */
+    top: 490px;
+    left: 0;
+    right: 0;
+    width: 95%;
+}
+
+.tabs, .tabcontent {
+    position: relative; /* Keep tabs on top of background */
+    z-index: 10;
+}
+
+.tab button {
+    position: relative;
+    z-index: 20;
+}
+
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: color 0.3s ease, font-size 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #8b5e3c;
+            font-size: 19px;
+        }
+
+        .sign-in-btn {
+            padding: 8px 16px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .sign-in-btn:hover {
+            background-color: #8b5e3c;
+            transform: scale(1.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            color: #8b5e3c;
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Tab styling */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 20px;
+            z-index: 10;
+        }
+
+        .tab {
+            margin-right: 816px;
+            background-color: transparent;
+            display: flex;
+            z-index: 10;
+        }
+
+        .tab button {
+            background-color: darkgray;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, border-radius 0.3s ease;
+            border-radius: 10px 10px 10px 10px;
+            width: 150px;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .tab button.active {
+            background-color: #333;
+            color: rgb(255, 255, 255);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .tab button:hover {
+            background-color: #555;
+            color: rgb(255, 255, 255);
+            transform: scale(1.05);
+        }
+
+        /* Tab content styling */
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            background-color: grey;
+            width: 80%;
+            margin: 0 auto;
+            z-index: 10;
+            border-radius: 10px 10px 10px 10px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .tabcontent.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-box {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #d3d3d3;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .content-box div {
+            text-align: center;
+            padding: 0 20px;
+            flex: 1;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .content-box div:hover {
+            transform: scale(1.05);
+        }
+
+        .content-box div h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .content-box div p {
+            font-size: 1rem;
+            color: #6b4f4f;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .content-box div p:hover {
+            color: #333;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="quarter-circle"></div>
+    <div class="quarter-circle-right"></div> <!-- Quarter circle on the right side -->
+    <div class="logo">
+        <img src="college.png" alt="Logo">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#" class="sign-in-btn">Sign In</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <!-- Background image should come before the tabs to sit behind them -->
+    <div class="background-image"></div>
+
+    <section class="hero">
+        <div class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <h1>ERP SYSTEM</h1>
+        <p>Welcome to our ERP system where you can get the required data of yours.</p>
+    </section>
+
+    <div class="tabs">
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event, 'Student')">Student</button>
+            <button class="tablinks" onclick="openTab(event, 'Faculty')">Faculty</button>
+        </div>
+    </div>
+
+    <div id="Student" class="tabcontent active">
+        <div class="content-box">
+            <div style="width: 50%; border-right: 2px solid black; padding-right: 20px;">
+                <h3>Login</h3>
+                <p>If you already have an account, login here.</p>
+            </div>
+            <div>
+                <h3>Sign Up</h3>
+                <p>Create a new account if you don't have one yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="Faculty" class="tabcontent">
+        <div class="content-box">
+            <div style="width: 50%; border-right: 2px solid black; padding-right: 20px;">
+                <h3>Login</h3>
+                <p>If you already have an account, login here.</p>
+            </div>
+            <div>
+                <h3>Sign Up</h3>
+                <p>Create a new account if you don't have one yet.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove('active');
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove('active');
+        }
+
+        document.getElementById(tabName).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
